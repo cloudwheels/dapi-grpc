@@ -37,9 +37,11 @@ rm -rf "$CLIENTS_PATH/nodejs/*_pbjs.js"
 cp "$WEB_OUT_PATH/core_pb.js" "$CLIENTS_PATH/nodejs/core_protoc.js"
 cp "$WEB_OUT_PATH/transactions_filter_stream_pb.js" "$CLIENTS_PATH/nodejs/transactions_filter_stream_protoc.js"
 
+npm ci
+
 # Generate node message classes
-$PWD/node_modules/protobufjs/bin/pbjs -t static-module -w commonjs -r core_root -o "$CLIENTS_PATH/nodejs/core_pbjs.js" "$PROTO_PATH/core.proto"
-$PWD/node_modules/protobufjs/bin/pbjs -t static-module -w commonjs -r transactions_filter_stream_root \
+pbjs -t static-module -w commonjs -r core_root -o "$CLIENTS_PATH/nodejs/core_pbjs.js" "$PROTO_PATH/core.proto"
+pbjs -t static-module -w commonjs -r transactions_filter_stream_root \
      -o "$CLIENTS_PATH/nodejs/transactions_filter_stream_pbjs.js" "$PROTO_PATH/transactions_filter_stream.proto"
 
 # Generate GRPC Java client for `Core`
